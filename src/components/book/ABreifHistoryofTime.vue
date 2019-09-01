@@ -2,7 +2,7 @@
     <div>
         <h3>A Breif History of Time<small>--Stephen Hawking</small></h3>
         <div>
-            <p v-for='(item,index) in chapters' :key=index>{{item.chapter}}--{{item.content}}</p>
+            <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
         </div>
     </div>
 </template>
@@ -10,20 +10,61 @@
     export default {
         data(){
             return {
-                chapters:[
-                {chapter:'前言',content:'前言'},
-                {chapter:'第一章',content:'我们的宇宙图像'},
-                {chapter:'第二章',content:'空间和时间'},
-                {chapter:'第三章',content:'膨胀的宇宙'},
-                {chapter:'第四章',content:'不确定性原理'},
-                {chapter:'第五章',content:'基本粒子和自然的力'},
-                {chapter:'第六章',content:'黑洞'},
-                {chapter:'第七章',content:'黑洞不是这么黑的'},
-                {chapter:'第八章',content:'宇宙的起源和命运'},
-                {chapter:'第九章',content:'时间箭头'},
-                {chapter:'第十章',content:'虫洞和时间旅行'},
-                {chapter:'第十一章',content:'物理学的统一'},
-                {chapter:'第十二章',content:'结论'}
+                data:[
+                    {label:'前言',
+                        children:[
+                            {label:'前言'}
+                        ]
+                    },
+                    {label:'第一章',
+                        children:[
+                            {label:'我们的宇宙图像'}
+                        ]
+                    },
+                    {label:'第二章',children:[
+                            {label:'空间和时间'}
+                        ]
+                    },
+                    {label:'第三章',children:[
+                            {label:'膨胀的宇宙'}
+                        ]
+                    },
+                    {label:'第四章',children:[
+                            {label:'不确定性原理'}
+                        ]
+                    },
+                    {label:'第五章',children:[
+                            {label:'基本粒子和自然的力'}
+                        ]
+                    },
+                    {label:'第六章',children:[
+                            {label:'黑洞'}
+                        ]
+                    },
+                    {label:'第七章',children:[
+                            {label:'黑洞不是这么黑的'}
+                        ]
+                    },
+                    {label:'第八章',children:[
+                            {label:'宇宙的起源和命运'}
+                        ]
+                    },
+                    {label:'第九章',children:[
+                            {label:'时间箭头'}
+                        ]
+                    },
+                    {label:'第十章',children:[
+                            {label:'虫洞和时间旅行'}
+                        ]
+                    },
+                    {label:'第十一章',children:[
+                            {label:'物理学的统一'}
+                        ]
+                    },
+                    {label:'第十二章',children:[
+                            {label:'结论'}
+                        ]
+                    }
                 ]
             }
         }

@@ -1,7 +1,7 @@
 <template>
     <div>
     <h1>book</h1>
-    <p>A Breif History of Time/Miser/divine comedy/Resurrection</p>
+    <p>简易结构：A Breif History of Time/Miser/divine comedy/Resurrection</p>
     <el-container>
             <el-container>
                 <el-aside width="200px">
