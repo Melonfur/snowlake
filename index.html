@@ -1,1 +1,109 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.ico><title>vue-standard</title><link href=/css/app.a6930c40.css rel=preload as=style><link href=/css/chunk-vendors.d9890480.css rel=preload as=style><link href=/js/app.dc6d9e36.js rel=preload as=script><link href=/js/chunk-vendors.9252554d.js rel=preload as=script><link href=/css/chunk-vendors.d9890480.css rel=stylesheet><link href=/css/app.a6930c40.css rel=stylesheet></head><body><noscript><strong>We're sorry but vue-standard doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.9252554d.js></script><script src=/js/app.dc6d9e36.js></script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<style>
+</style>
+<body>
+<div>
+	<canvas id="canvas" width=500 height=500></canvas>
+</div>
+</body>
+<script>
+	drawClock={
+		draw(){
+			var c=this.getEl();
+			this.drawFace(c);
+			this.drawNumber(c);
+			this.drawMark(c);
+			this.drawHand(c);
+		},
+		getEl(){
+			var canvas=document.getElementById('canvas'),
+				can=canvas.getContext('2d');
+				canvas.style.background="aliceblue";
+				width=canvas.width;
+				height=canvas.height;
+				return {can,width,height}
+		},
+		drawFace(c){
+				c.can.clearRect(0,0,c.width,c.height);
+				c.can.translate(c.width/2,c.height/2);
+				c.can.beginPath();
+				c.can.arc(0,0,(c.width/2)*0.9,0,2*Math.PI);
+				c.can.fillStyle="white";
+				c.can.fill();
+				var	rad=c.can.createRadialGradient(0,0,(c.width/2)*0.85,0,0,(c.width/2)*0.95);
+					rad.addColorStop(0,'#333');
+					rad.addColorStop(0.5,'white');
+					rad.addColorStop(1,'#333');
+				c.can.strokeStyle=rad;
+				c.can.lineWidth=(c.width/2)*0.1;
+				c.can.stroke();
+				c.can.beginPath();
+				c.can.arc(0,0,(c.width/2)*0.02,0,2*Math.PI);
+				c.can.fillStyle="#333";
+				c.can.fill();
+		},
+		drawNumber(c){
+				for (let n=1;n<13;n++){
+					c.can.rotate((n/6)*Math.PI);
+					c.can.translate(0,-(c.height/2)*0.75);
+					c.can.font="18px sans-serif";
+					c.can.fillStyle="green";
+					c.can.rotate(-(n/6)*Math.PI);
+					c.can.fillText(n,0,0);
+					c.can.textAlign="center";
+					c.can.textBaseline="middle";
+					c.can.rotate((n/6)*Math.PI);
+					c.can.translate(0,(c.height/2)*0.75);
+					c.can.rotate(-(n/6)*Math.PI);
+				}
+		},
+		drawMark(c){
+				for(let i=1;i<61;i++){
+					c.can.rotate((i/30)*Math.PI);
+					c.can.translate(0,-(c.height/2)*0.88);
+					if (i%5==0){
+						c.can.font="bold 15px sans-serif";
+					}else{
+						
+						c.can.font="10px sans-serif";
+					}
+					c.can.fillStyle="black"
+					c.can.fillText("|",0,0);
+					c.can.textBaseline="top";
+					c.can.translate(0,(c.height/2)*0.88);
+					c.can.rotate(-(i/30)*Math.PI)
+				}
+		},
+		drawHand(c){
+			var now=new Date();
+			var hour=now.getHours()%12,minute=now.getMinutes(),second=now.getSeconds();
+			var hAngle=(hour/6+minute/(60*6)+second/(60*60*6))*Math.PI,
+				mAngle=(minute/30+second/(60*30))*Math.PI,
+				sAngle=(second/30)*Math.PI;
+			var	hLength=(c.width/2)*0.2,
+				mLength=(c.width/2)*0.5,
+				sLength=(c.width/2)*0.7;
+			var hWidth=(c.width/2)*0.08,
+				mWidth=(c.width/2)*0.05,
+				sWidth=(c.width/2)*0.02;
+				this.drawTime(c,hAngle,hLength,hWidth);
+				this.drawTime(c,mAngle,mLength,mWidth);
+				this.drawTime(c,sAngle,sLength,sWidth);
+				c.can.translate(-c.width/2,-c.height/2);
+		},
+		drawTime(a,p,l,w){
+			a.can.rotate(p);
+			a.can.moveTo(0,0);
+			a.can.lineCap="round";
+			a.can.lineWidth=w;
+			a.can.lineTo(0,-l);
+			a.can.stroke();
+			a.can.rotate(-p);
+		}
+	}
+	setInterval(drawClock.draw.bind(drawClock),1000)
+</script>
+</html>
