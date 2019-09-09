@@ -5,11 +5,10 @@
       <ul>
         <li><router-link :to='{name:"shop"}'>shop</router-link></li>
         <li><router-link to='/book'>book</router-link></li>
+        <li><router-link to='/xhr'>weather</router-link></li>
       </ul>
     </div>
       <router-view></router-view>
-      <hr>
-      <router-view name="weather"></router-view>
   </div>
 </template>
 

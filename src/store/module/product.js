@@ -30,17 +30,16 @@ const actions={
     getShop({state,commit,rootState}){
         var add=localStorage.get('store');
         //修正LcocalStorage里数量不一致的问题
-        var num=shop.every((item,index)=>{
-         return parseInt(item.quantity)==parseInt(add.s[index].quantity)+parseInt(add.c[index].quantity)
-        })
-        if (num){
-            if (add!==null){
+        if (add!==null){
+            var num=shop.every((item,index)=>{
+                return parseInt(item.quantity)==parseInt(add.s[index].quantity)+parseInt(add.c[index].quantity)
+            })
+            if (num){
                 state.shop=add.s
                 rootState.cart.cart=add.c
             }else{
                 commit('getShop')
-            }
-            
+            } 
        }else{
            commit('getShop')
         }

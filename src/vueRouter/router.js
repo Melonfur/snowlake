@@ -10,8 +10,8 @@ import vueRouter from 'vue-router'
 vue.use(vueRouter)
 
 const routes=[
-    {path:'/shop',components:{default:shop,weather:weather},name:'shop'},
-    //{path:'/menu',component:menu,name:'menu'},
+    {path:'/shop',component:shop,name:'shop'},
+    {path:'/xhr',component:weather,name:'weather'},
     {path:'/book',component:book,name:'book',
         children:[
             {path:'time',component:time,name:'A Breif History of Time'},
@@ -21,10 +21,11 @@ const routes=[
             {path:'*',redirect:{name:'Miser'}}
         ]
     },
-    {path:'*',redirect:'/shop'}//默认跳转，重定向
+    {path:'*',redirect:null}//默认跳转，重定向
 ]
 export default new vueRouter({
         mode:'history',
+        base:'snowlake',
         routes
     }
 )
